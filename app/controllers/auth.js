@@ -25,7 +25,7 @@ exports.googleSignIn = (req, res) => {
   const url = "https://www.googleapis.com/oauth2/v3/userinfo";
   oauthHelper(req.body.access_token, url)
     .then((userInfo) => {
-    	console.log("VALIDATED: ", userinfo);
+    	console.log("VALIDATED: ", userInfo);
       // match userInfo.sub with req.body.user_id
       if (userInfo.sub !== req.body.user_id) {
         return res.status(401).json({
