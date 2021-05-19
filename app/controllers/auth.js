@@ -21,9 +21,11 @@ const oauthHelper = (accessToken, url) => {
 
 exports.googleSignIn = (req, res) => {
   // request auth api to fetch user info
+  console.log("Reached BACKEND!");
   const url = "https://www.googleapis.com/oauth2/v3/userinfo";
   oauthHelper(req.body.access_token, url)
     .then((userInfo) => {
+    	console.log("VALIDATED: ", userinfo);
       // match userInfo.sub with req.body.user_id
       if (userInfo.sub !== req.body.user_id) {
         return res.status(401).json({
@@ -36,6 +38,7 @@ exports.googleSignIn = (req, res) => {
         { user_id: userInfo.id },
         process.env.SECRET_KEY
       );
+      console.log("RESPONSE SENT!!!");
       return res.status(200).json({
         jwt_token,
       });
